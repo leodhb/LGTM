@@ -50,103 +50,111 @@ struct MonitoredRepositoriesView: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            VStack(spacing: 10) {
-                Text("Manage Monitored Repositories")
-                    .font(.system(size: 18, weight: .semibold))
+        VStack {
+            Spacer(minLength: 0)
+            
+            VStack(spacing: 0) {
+                // Header
+                VStack(spacing: 10) {
+                    Text("Manage Monitored Repositories")
+                        .font(.system(size: 18, weight: .semibold))
+                    
+                    VStack(spacing: 4) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "eye")
+                                .font(.system(size: 11))
+                                .foregroundColor(.blue)
+                            Text("Empty = monitors all repos you have access to")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        HStack(spacing: 4) {
+                            Image(systemName: "list.bullet.circle.fill")
+                                .font(.system(size: 11))
+                                .foregroundColor(.orange)
+                            Text("With repos = monitors only those repos")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+                .padding(.top, 20)
+                .padding(.bottom, 16)
                 
-                VStack(spacing: 4) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "eye")
-                            .font(.system(size: 11))
-                            .foregroundColor(.blue)
-                        Text("Empty = monitors all repos you have access to")
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(.secondary)
+                Divider()
+                
+                // Content
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Repositories")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.secondary)
+                        .textCase(.uppercase)
+                    
+                    // Repository inputs
+                    ForEach($repoInputs) { $input in
+                        RepoInputRow(
+                            value: $input.value,
+                            isInvalid: invalidIDs.contains(input.id),
+                            showRemove: repoInputs.count > 1,
+                            onRemove: { removeOrClear(id: input.id) }
+                        )
                     }
                     
-                    HStack(spacing: 4) {
-                        Image(systemName: "list.bullet.circle.fill")
-                            .font(.system(size: 11))
-                            .foregroundColor(.orange)
-                        Text("With repos = monitors only those repos")
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(.secondary)
+                    // Add repository button
+                    Button(action: addInput) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "plus.circle.fill")
+                                .font(.system(size: 14))
+                            Text("Add repository")
+                                .font(.system(size: 13))
+                        }
                     }
-                }
-            }
-            .padding(.top, 20)
-            .padding(.bottom, 16)
-            
-            Divider()
-            
-            // Content
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Repositories")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(.secondary)
-                    .textCase(.uppercase)
-                
-                // Repository inputs
-                ForEach($repoInputs) { $input in
-                    RepoInputRow(
-                        value: $input.value,
-                        isInvalid: invalidIDs.contains(input.id),
-                        showRemove: repoInputs.count > 1,
-                        onRemove: { removeOrClear(id: input.id) }
-                    )
-                }
-                
-                // Add repository button
-                Button(action: addInput) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 14))
-                        Text("Add repository")
-                            .font(.system(size: 13))
-                    }
-                }
-                .buttonStyle(.plain)
-                .foregroundColor(.accentColor)
-                .padding(.top, 4)
-                
-                // Error message
-                if showError {
-                    HStack(spacing: 6) {
-                        Image(systemName: "exclamationmark.circle.fill")
-                            .font(.system(size: 12))
-                        Text("All fields must be empty or use format: owner/repository")
-                            .font(.system(size: 11))
-                    }
-                    .foregroundColor(.red)
+                    .buttonStyle(.plain)
+                    .foregroundColor(.accentColor)
                     .padding(.top, 4)
+                    
+                    // Error message
+                    if showError {
+                        HStack(spacing: 6) {
+                            Image(systemName: "exclamationmark.circle.fill")
+                                .font(.system(size: 12))
+                            Text("All fields must be empty or use format: owner/repository")
+                                .font(.system(size: 11))
+                        }
+                        .foregroundColor(.red)
+                        .padding(.top, 4)
+                    }
                 }
-            }
-            .padding(20)
-            
-            Divider()
-            
-            // Footer buttons
-            HStack(spacing: 12) {
-                Spacer()
+                .padding(20)
                 
-                Button("Cancel") {
-                    onCancel()
-                }
-                .keyboardShortcut(.cancelAction)
+                Divider()
                 
-                Button("Save") {
-                    validateAndSave()
+                // Footer buttons
+                HStack(spacing: 12) {
+                    Spacer()
+                    
+                    Button("Cancel") {
+                        onCancel()
+                    }
+                    .keyboardShortcut(.cancelAction)
+                    
+                    Button("Save") {
+                        validateAndSave()
+                    }
+                    .keyboardShortcut(.defaultAction)
+                    .buttonStyle(.borderedProminent)
                 }
-                .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
+            .frame(width: 420)
+            .fixedSize(horizontal: false, vertical: true)
+            .background(Color(NSColor.windowBackgroundColor))
+            
+            Spacer(minLength: 0)
         }
-        .frame(width: 420)
-        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color(NSColor.windowBackgroundColor))
     }
     

@@ -9,119 +9,127 @@ struct DeviceCodeView: View {
     @State private var copied = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            VStack(spacing: 12) {
-                Image(systemName: "lock.shield")
-                    .font(.system(size: 48))
-                    .foregroundColor(.accentColor)
-                
-                Text("Connect to GitHub")
-                    .font(.system(size: 20, weight: .semibold))
-                
-                Text("Follow these steps to connect:")
-                    .font(.system(size: 13))
-                    .foregroundColor(.secondary)
-            }
-            .padding(.top, 28)
-            .padding(.bottom, 20)
+        VStack {
+            Spacer(minLength: 0)
             
-            // Steps
-            VStack(alignment: .leading, spacing: 12) {
-                StepRow(number: "1", text: "Copy your code (click the button below)")
-                StepRow(number: "2", text: "Click on 'Open GitHub & Authorize' and paste the code")
-                StepRow(number: "3", text: "Click on 'Authorize LGTM'")
-            }
-            .padding(.horizontal, 28)
-            .padding(.bottom, 20)
-            
-            // Code section
-            VStack(spacing: 10) {
-                Text("Your code:")
-                    .font(.system(size: 12))
-                    .foregroundColor(.secondary)
-                
-                // Code display
-                HStack {
-                    Spacer()
-                    Text(userCode)
-                        .font(.system(size: 24, weight: .medium, design: .monospaced))
-                        .foregroundColor(.primary)
-                        .tracking(1.5)
-                        .textSelection(.enabled)
-                    Spacer()
+            VStack(spacing: 0) {
+                // Header
+                VStack(spacing: 12) {
+                    Image(systemName: "lock.shield")
+                        .font(.system(size: 48))
+                        .foregroundColor(.accentColor)
+                    
+                    Text("Connect to GitHub")
+                        .font(.system(size: 20, weight: .semibold))
+                    
+                    Text("Follow these steps to connect:")
+                        .font(.system(size: 13))
+                        .foregroundColor(.secondary)
                 }
-                .padding(.vertical, 14)
-                .padding(.horizontal, 20)
-                .background(Color(NSColor.controlBackgroundColor))
-                .cornerRadius(6)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .strokeBorder(Color(NSColor.separatorColor), lineWidth: 0.5)
-                )
+                .padding(.top, 28)
+                .padding(.bottom, 20)
                 
-                // Copy button
-                Button(action: {
-                    copyToClipboard()
-                }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: copied ? "checkmark.circle.fill" : "doc.on.doc")
-                        Text(copied ? "Copied!" : "Copy Code")
-                            .font(.system(size: 12))
+                // Steps
+                VStack(alignment: .leading, spacing: 12) {
+                    StepRow(number: "1", text: "Copy your code (click the button below)")
+                    StepRow(number: "2", text: "Click on 'Open GitHub & Authorize' and paste the code")
+                    StepRow(number: "3", text: "Click on 'Authorize LGTM'")
+                }
+                .padding(.horizontal, 28)
+                .padding(.bottom, 20)
+                
+                // Code section
+                VStack(spacing: 10) {
+                    Text("Your code:")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                    
+                    // Code display
+                    HStack {
+                        Spacer()
+                        Text(userCode)
+                            .font(.system(size: 24, weight: .medium, design: .monospaced))
+                            .foregroundColor(.primary)
+                            .tracking(1.5)
+                            .textSelection(.enabled)
+                        Spacer()
                     }
-                    .foregroundColor(copied ? .green : .accentColor)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 6)
-                }
-                .buttonStyle(PlainButtonStyle())
-                
-                // Hint
-                VStack(spacing: 4) {
-                    (Text("You can skip ")
-                        .foregroundColor(.secondary) +
-                     Text("\"Organization access\"")
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary) +
-                     Text(" step - it's not needed.")
-                        .foregroundColor(.secondary))
-                    .font(.system(size: 11))
-                    .multilineTextAlignment(.center)
+                    .padding(.vertical, 14)
+                    .padding(.horizontal, 20)
+                    .background(Color(NSColor.controlBackgroundColor))
+                    .cornerRadius(6)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .strokeBorder(Color(NSColor.separatorColor), lineWidth: 0.5)
+                    )
                     
-                    Text("LGTM uses the 'repo' scope (GitHub limitation),")
-                        .font(.system(size: 11))
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
+                    // Copy button
+                    Button(action: {
+                        copyToClipboard()
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: copied ? "checkmark.circle.fill" : "doc.on.doc")
+                            Text(copied ? "Copied!" : "Copy Code")
+                                .font(.system(size: 12))
+                        }
+                        .foregroundColor(copied ? .green : .accentColor)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 6)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                     
-                    Text("but only reads PRs assigned to you.")
+                    // Hint
+                    VStack(spacing: 4) {
+                        (Text("You can skip ")
+                            .foregroundColor(.secondary) +
+                         Text("\"Organization access\"")
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary) +
+                         Text(" step - it's not needed.")
+                            .foregroundColor(.secondary))
                         .font(.system(size: 11))
-                        .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
+                        
+                        Text("LGTM uses the 'repo' scope (GitHub limitation),")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                        
+                        Text("but only reads PRs assigned to you.")
+                            .font(.system(size: 11))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.top, 8)
                 }
-                .padding(.top, 8)
-            }
-            .padding(.horizontal, 28)
-            .padding(.bottom, 24)
-            
-            Divider()
-            
-            // Action buttons
-            HStack(spacing: 12) {
-                Button("Cancel") {
-                    onCancel()
-                }
-                .keyboardShortcut(.cancelAction)
-                .controlSize(.large)
+                .padding(.horizontal, 28)
+                .padding(.bottom, 24)
                 
-                Button("Open GitHub & Authorize") {
-                    onOpenGitHub()
+                Divider()
+                
+                // Action buttons
+                HStack(spacing: 12) {
+                    Button("Cancel") {
+                        onCancel()
+                    }
+                    .keyboardShortcut(.cancelAction)
+                    .controlSize(.large)
+                    
+                    Button("Open GitHub & Authorize") {
+                        onOpenGitHub()
+                    }
+                    .keyboardShortcut(.defaultAction)
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
                 }
-                .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
+                .padding(16)
             }
-            .padding(16)
+            .frame(width: 480)
+            .background(Color(NSColor.windowBackgroundColor))
+            
+            Spacer(minLength: 0)
         }
-        .frame(width: 480)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .background(Color(NSColor.windowBackgroundColor))
     }
     

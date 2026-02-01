@@ -315,11 +315,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.titlebarAppearsTransparent = true
         window.isReleasedWhenClosed = false
         window.level = .floating
+
+        // Ensure the window sizes to the SwiftUI view before centering.
+        _ = hostingController.view
+        hostingController.view.layoutSubtreeIfNeeded()
+        window.setContentSize(hostingController.view.fittingSize)
         
         self.deviceCodeWindow = window
         
-        window.makeKeyAndOrderFront(nil)
         window.center()
+        window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
     
@@ -474,11 +479,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.title = "Manage Monitored Repositories"
         window.isReleasedWhenClosed = false
         window.level = .floating
+
+        // Ensure the window sizes to the SwiftUI view before centering.
+        _ = hostingController.view
+        hostingController.view.layoutSubtreeIfNeeded()
+        window.setContentSize(hostingController.view.fittingSize)
         
         self.monitoredReposWindow = window
         
-        window.makeKeyAndOrderFront(nil)
         window.center()
+        window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
     
@@ -503,11 +513,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.title = "Help"
         window.isReleasedWhenClosed = false
         window.level = .floating
+
+        // Ensure the window sizes to the SwiftUI view before centering.
+        _ = hostingController.view
+        hostingController.view.layoutSubtreeIfNeeded()
+        window.setContentSize(hostingController.view.fittingSize)
         
         self.helpWindow = window
         
-        window.makeKeyAndOrderFront(nil)
         window.center()
+        window.makeKeyAndOrderFront(nil)
         NSApp.activate(ignoringOtherApps: true)
     }
     
