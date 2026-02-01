@@ -1,6 +1,6 @@
 import Foundation
 
-struct PullRequest: Codable, Sendable {
+nonisolated struct PullRequest: Codable, Sendable {
     let id: Int
     let number: Int
     let title: String
@@ -21,11 +21,11 @@ struct PullRequest: Codable, Sendable {
 }
 
 // GitHub API Response Models
-struct GitHubSearchResponse: Codable, Sendable {
+nonisolated struct GitHubSearchResponse: Codable, Sendable {
     let items: [GitHubIssue]
 }
 
-struct GitHubIssue: Codable, Sendable {
+nonisolated struct GitHubIssue: Codable, Sendable {
     let id: Int
     let number: Int
     let title: String
@@ -45,11 +45,11 @@ struct GitHubIssue: Codable, Sendable {
     }
 }
 
-struct GitHubUser: Codable, Sendable {
+nonisolated struct GitHubUser: Codable, Sendable {
     let login: String
 }
 
-struct GitHubUserResponse: Codable, Sendable {
+nonisolated struct GitHubUserResponse: Codable, Sendable {
     let login: String
 }
 
