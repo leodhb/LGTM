@@ -1,9 +1,11 @@
+<img width="128" height="128" alt="icon_512x512" src="https://github.com/user-attachments/assets/55c585f1-9b43-4db9-8eee-71e8457fcaea" />
+
 # LGTM
 
 **Stop ignoring PR reviews.**
 
 macOS menu bar app for tracking GitHub pull requests that need your review
-
+<img width="733" height="211" alt="Captura de Tela 2026-02-01 às 16 10 57" src="https://github.com/user-attachments/assets/294eb103-fa4c-412c-9347-6343bab66343" />
 
 
 ## What it does
