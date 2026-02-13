@@ -15,6 +15,7 @@ macOS menu bar app for tracking GitHub pull requests that need your review
 - Polls GitHub API every 60 seconds
 - Opens PRs directly in your browser
 - Monitor specific repositories or all at once
+- Notifies you when a new PR is coming
 
 ## Requirements
 
@@ -22,8 +23,7 @@ macOS menu bar app for tracking GitHub pull requests that need your review
 - A GitHub account
 
 ## Download
-
-Get the latest release from the [Releases](https://github.com/leodhb/LGTM/releases) page.
+Going to push the first release soon
 
 ## Building from source
 
